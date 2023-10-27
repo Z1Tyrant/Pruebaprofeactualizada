@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'SkeletonAPP',
+  appId: 'PideQr.app',
+  appName: 'PideQr',
   webDir: 'www',
   server: {
     androidScheme: 'https'

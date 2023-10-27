@@ -84,7 +84,15 @@ const routes: Routes = [
   {
     path: 'perfil-list',
     loadChildren: () => import('./perfiles/perfil-list/perfil-list.module').then( m => m.PerfilListPageModule)
+  },  {
+    path: 'camara',
+    loadChildren: () => import('./camara/camara.module').then( m => m.CamaraPageModule)
   },
+  {
+    path: 'geolocalizacion',
+    loadChildren: () => import('./geolocalizacion/geolocalizacion.module').then( m => m.GeolocalizacionPageModule)
+  },
+
 
 ];
 
