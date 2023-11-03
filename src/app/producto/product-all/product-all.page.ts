@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClProducto } from '../model/ClProducto';
+import { ClProducto } from "../model/ClProducto";
 @Component({
   selector: 'app-product-all',
   templateUrl: './product-all.page.html',
