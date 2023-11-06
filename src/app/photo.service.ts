@@ -13,7 +13,7 @@ export class PhotoService {
   constructor() { }
 
 
-  public photos: UserPhoto[] = [];
+  public photos: UserPhoto [] = [];
 
 
 

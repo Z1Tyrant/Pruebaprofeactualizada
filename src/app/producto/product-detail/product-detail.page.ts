@@ -15,11 +15,25 @@ import { ProductServiceService } from '../product-service.service';
 export class ProductDetailPage implements OnInit {
   // Creamos registro a utilizar en el Html
   producto: ClProducto = {
-    id: 1511
-    , nombre: 'Harrys el Magnifico'
-    , descripcion: 'El Ingenioso'
-    , precio: 100
-    , fecha: new Date()
+    idProducto: 0,
+    codigo: '',
+    nombreprod: '',
+    precio: 0,
+    cantidad: 0,
+    fechaNacimiento: new Date(),
+    rut: 0,
+    dv: '',
+    enfermedad: '',
+    fonocontacto: 0,
+    categoria: '',
+    editorial: '',
+    raza: '',
+    edad: 0,
+    altura: 0,
+    hrini: '',
+    hrfin: '',
+    direccion: '',
+    fCreacion: new Date(),
   };
 
   // Injectamos Librerías a utilizar

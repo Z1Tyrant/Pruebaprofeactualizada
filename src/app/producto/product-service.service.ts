@@ -22,7 +22,7 @@ export class ProductServiceService {
 
   addProduct(producto: ClProducto): Observable<ClProducto> {
     console.log("Enviando producto para agregar: ", producto);
-    return this.http.post<ClProducto>(apiUrl, producto, httpOptions)
+    return this.http.post<ClProducto>(apiUrl + "/" + producto, httpOptions)
       .pipe(
         tap((producto: ClProducto) => console.log('Producto agregado:', producto)),
         catchError(this.handleError<ClProducto>('addProduct'))

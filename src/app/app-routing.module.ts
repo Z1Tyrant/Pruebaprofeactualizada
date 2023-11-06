@@ -33,7 +33,7 @@ const routes: Routes = [
     loadChildren: () => import('./producto/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   },
   {
-    path: 'product-detail/:id',
+    path: 'product-detail/:idProducto',
     loadChildren: () => import('./producto/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   },
   {
@@ -84,7 +84,8 @@ const routes: Routes = [
   {
     path: 'perfil-list',
     loadChildren: () => import('./perfiles/perfil-list/perfil-list.module').then( m => m.PerfilListPageModule)
-  },  {
+  },
+  {
     path: 'camara',
     loadChildren: () => import('./camara/camara.module').then( m => m.CamaraPageModule)
   },

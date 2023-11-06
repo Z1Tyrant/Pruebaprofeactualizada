@@ -17,7 +17,28 @@ export class ProductEditPage implements OnInit {
   // FormGroup para validaciones
   productForm!: FormGroup;
   // Esquema a utilizar en el Html
-  producto: ClProducto = { id: 1, nombre: '', descripcion: '', precio: 0, fecha: new Date(),  };
+  producto: ClProducto = {
+    idProducto: 0,
+  codigo: '',
+  nombreprod: '',
+  precio: 0,
+  cantidad: 0,
+  fechaNacimiento: new Date(),
+  rut: 0,
+  dv: '',
+  enfermedad: '',
+  fonocontacto: 0,
+  categoria: '',
+  editorial: '',
+  raza: '',
+  edad: 0,
+  altura: 0,
+  hrini: '',
+  hrfin: '',
+  direccion: '',
+  fCreacion: new Date(),
+
+  };
   id: any = '';
   //prod_name: string = '';
   //prod_desc: string = '';
@@ -45,7 +66,7 @@ export class ProductEditPage implements OnInit {
   }
   async onFormSubmit(form: NgForm) {
     console.log("onFormSubmit ID:" + this.id)
-    this.producto.id = this.id;
+    this.producto.idProducto = this.id;
     /*this.producto.nombre = form.prod_name;
     this.producto.descripcion = form.prod_desc;
     this.producto.precio = form.prod_price;
@@ -56,7 +77,7 @@ export class ProductEditPage implements OnInit {
     await this.restApi.updateProduct(this.id, this.producto)
       .subscribe({
         next: (res) => {
-          let id = res['id'];
+          let id = res['idProducto'];
           //this.router.navigate([ 'detail', { outlets: { details: id }} ]);
           this.router.navigate(['/product-detail/' + this.id]);
         }
@@ -81,11 +102,11 @@ export class ProductEditPage implements OnInit {
             console.log("getProductID data****");
             console.log(data);
             // Si funciona Rescata el los datos
-            this.id = data.id;
+            this.id = data.idProducto;
             // Actualiza los datos
             this.productForm.setValue({
-              prod_name: data.nombre,
-              prod_desc: data.descripcion,
+              prod_name: data.nombreprod,
+              prod_desc: data.direccion,
               prod_price: data.precio,
             });
             loading.dismiss();
