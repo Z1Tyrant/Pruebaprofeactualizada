@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ProductAddPageRoutingModule } from './product-add-routing.module';
 
 import { ProductAddPage } from './product-add.page';
-import { ReactiveFormsModule } from '@angular/forms';  // <<========
-//import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';  // Importa HttpClientModule si es necesario
 
 @NgModule({
   imports: [
@@ -16,8 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';  // <<========
     FormsModule,
     IonicModule,
     ProductAddPageRoutingModule,
-    ReactiveFormsModule,      // <<========
-    //HttpClientModule,         // <<======
+    ReactiveFormsModule,
+    HttpClientModule, // Importa HttpClientModule si es necesario
   ],
   declarations: [ProductAddPage]
 })

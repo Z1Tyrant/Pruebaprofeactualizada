@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-// Import a utilizar 
+
+// Import a utilizar
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { ClProducto } from "../model/ClProducto";
+import { ClProducto } from '../model/ClProducto';
 import { ProductServiceService } from '../product-service.service';
+
+
 
 
 @Component({
@@ -16,25 +19,26 @@ export class ProductDetailPage implements OnInit {
   // Creamos registro a utilizar en el Html
   producto: ClProducto = {
     idProducto: 0,
-    codigo: '',
+    codigo: '09-G06',
     nombreprod: '',
     precio: 0,
-    cantidad: 0,
-    fechaNacimiento: new Date(),
-    rut: 0,
-    dv: '',
-    enfermedad: '',
-    fonocontacto: 0,
-    categoria: '',
-    editorial: '',
-    raza: '',
-    edad: 0,
-    altura: 0,
-    hrini: '',
-    hrfin: '',
-    direccion: '',
-    fCreacion: new Date(),
+    cantidad: 0, // Nueva propiedad
+    fechaNacimiento: '', // Nueva propiedad
+    rut:'',
+    dv: '', // Nueva propiedad
+    enfermedad: '0', // Nueva propiedad
+    fonocontacto: 0, // Nueva propiedad
+    categoria: '0', // Nueva propiedad
+    editorial: '0', // Nueva propiedad
+    raza: '0', // Nueva propiedad
+    edad: 0, // Nueva propiedad
+    altura: 0, // Nueva propiedad
+    hrini: '0', // Nueva propiedad
+    hrfin: '0', // Nueva propiedad
+    direccion: '0', // Nueva propiedad
+    fCreacion: '', // Nueva propiedad
   };
+
 
   // Injectamos Librerías a utilizar
   constructor(
@@ -45,35 +49,70 @@ export class ProductDetailPage implements OnInit {
     , public router: Router
   ) { }
 
+
   // En el OnInit, ejecutamos la lectura
   ngOnInit() {
     this.getProduct();
   }
 
+
 // Método que permite leer el producto
+  // async getProduct() {
+  //   console.log("getProduct **************** ParamMap ID:" + this.route.snapshot.paramMap.get('id'));
+  //   // Creamos un Wait
+  //   const loading = await this.loadingController.create({ message: 'Loading...' });
+  //   // Mostramos el Wait
+  //   await loading.present();
+  //   await this.restApi.getProduct(this.route.snapshot.paramMap.get('id')!)
+  //     .subscribe({
+  //       next: (res) => {
+  //         console.log("Data *****************");
+  //         console.log(res);
+  //         // Si funciona la respuesta la pasamos al producto
+  //         this.producto = res;
+  //         loading.dismiss();
+  //       }
+  //       , complete: () => { }
+  //       , error: (err) => {
+  //         //Si no funcion desplegamos en consola el error
+  //         console.log("Error DetailProduct Página", err);
+  //         loading.dismiss(); //Elimina la espera
+  //       }
+  //     })
+  // }
+
+
+
+
   async getProduct() {
     console.log("getProduct **************** ParamMap ID:" + this.route.snapshot.paramMap.get('id'));
-    // Creamos un Wait
+    const productId = Number(this.route.snapshot.paramMap.get('idProducto')); // Convertir a número
+    if (isNaN(productId)) {
+      // Manejar el caso en el que 'id' no sea un número válido
+      console.error('ID no es un número válido');
+      return;
+    }
+ 
     const loading = await this.loadingController.create({ message: 'Loading...' });
-    // Mostramos el Wait
     await loading.present();
-    await this.restApi.getProduct(this.route.snapshot.paramMap.get('id')!)
+   
+    await this.restApi.getProduct(productId)
       .subscribe({
         next: (res) => {
           console.log("Data *****************");
           console.log(res);
-          // Si funciona la respuesta la pasamos al producto
           this.producto = res;
           loading.dismiss();
-        }
-        , complete: () => { }
-        , error: (err) => {
-          //Si no funcion desplegamos en consola el error
+        },
+        complete: () => { },
+        error: (err) => {
           console.log("Error DetailProduct Página", err);
-          loading.dismiss(); //Elimina la espera
+          loading.dismiss();
         }
-      })
+      });
   }
+ 
+
 
   // El Html invoca el método delete
   async delete(id: number) {
@@ -99,6 +138,7 @@ export class ProductDetailPage implements OnInit {
     await alert.present();
   }
 
+
   // Es invocado desde el Alert
   async deleteConfirmado(id: number) {
     alert("Eliminando " + id)
@@ -119,6 +159,10 @@ export class ProductDetailPage implements OnInit {
           loading.dismiss(); //Elimina la espera
         }
 
+
       })
   }
 }
+
+
+

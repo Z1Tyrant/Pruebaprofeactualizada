@@ -1,10 +1,9 @@
-import { ClProducto } from './../model/ClProducto';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { ProductServiceService } from '../product-service.service';
+import { ClProducto } from '../model/ClProducto';
+import { ProductServiceService } from 'src/app/producto/product-service.service';
 
 
 @Component({
@@ -20,27 +19,28 @@ export class ProductAddPage implements OnInit {
   // Generalmente se usa una interface, sin embargo para jugar utilizaremos  una clase
   producto: ClProducto = {
     idProducto: 0,
-    codigo: '',
+    codigo: '09-G04',
     nombreprod: '',
     precio: 0,
-    cantidad: 0,
-    fechaNacimiento: new Date(),
-    rut: 0,
-    dv: '',
-    enfermedad: '',
-    fonocontacto: 0,
-    categoria: '',
-    editorial: '',
-    raza: '',
-    edad: 0,
-    altura: 0,
-    hrini: '',
-    hrfin: '',
-    direccion: '',
-    fCreacion: new Date(),
+    cantidad: 0, // Nueva propiedad
+    fechaNacimiento: '', // Nueva propiedad
+    rut:'0',
+    dv: '0', // Nueva propiedad
+    enfermedad: '0', // Nueva propiedad
+    fonocontacto: 0, // Nueva propiedad
+    categoria: '0', // Nueva propiedad
+    editorial: '0', // Nueva propiedad
+    raza: '0', // Nueva propiedad
+    edad: 0, // Nueva propiedad
+    altura: 0, // Nueva propiedad
+    hrini: '0', // Nueva propiedad
+    hrfin: '0', // Nueva propiedad
+    direccion: '', // Nueva propiedad
+    fCreacion: '', // Nueva propiedad
   };
 
-  // Injectamos FormBuilder, el cual nos permitirá realizar validaciones                         
+
+  // Injectamos FormBuilder, el cual nos permitirá realizar validaciones                        
   constructor(private formBuilder: FormBuilder,
     // Injectamos las librerías necesarias
     private loadingController: LoadingController,
@@ -48,27 +48,43 @@ export class ProductAddPage implements OnInit {
     private router: Router,
   ) { }
 
+
   // Antes que inicie en pantalla
-  // especificamos las validaciones, 
+  // especificamos las validaciones,
   //    por medio de formBuilder injectado en el constructor
   ngOnInit() {
     // Especificamos que todos los campos son obligatorios
     this.productForm = this.formBuilder.group({
-      "nombreprod": [null, Validators.required],
-      'precio': [null, Validators.required],
-      'direccion': [null, Validators.required],
+      "prod_name": [null, Validators.required],
+      'prod_desc': [null, Validators.required],
+      'prod_price': [null, Validators.required],
     });
   }
   // se ejecutará cuando presione el Submit
   async onFormSubmit(form: NgForm) {
     console.log("onFormSubmit del Product ADD")
 
+
     // Creamos un Loading Controller, Ojo no lo muestra
+    console.log("Contenido de this.producto:", this.producto);
+
+
+
+
     const loading = await this.loadingController.create({
       message: 'Loading...'
     });
     // Muestra el Loading Controller
     await loading.present();
+
+
+
+
+
+
+    // Antes de realizar la solicitud
+console.log("Datos que se van a enviar:", this.producto);
+
 
     // Ejecuta el método del servicio y los suscribe
     await this.restApi.addProduct(this.producto)
@@ -93,4 +109,8 @@ export class ProductAddPage implements OnInit {
     console.log("Observe que todo lo del suscribe sale después de este mensaje")
   }
 
+
 }
+
+
+

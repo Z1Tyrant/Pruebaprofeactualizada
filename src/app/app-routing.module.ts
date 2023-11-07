@@ -65,7 +65,7 @@ const routes: Routes = [
     loadChildren: () => import('./perfiles/perfil-all/perfil-all.module').then( m => m.PerfilAllPageModule)
   },
   {
-    path: 'perfil-detail',
+    path: 'perfil-detail/:idProducto',
     loadChildren: () => import('./perfiles/perfil-detail/perfil-detail.module').then( m => m.PerfilDetailPageModule)
   },
   {
@@ -73,7 +73,7 @@ const routes: Routes = [
     loadChildren: () => import('./perfiles/perfil-detail/perfil-detail.module').then( m => m.PerfilDetailPageModule)
   },
   {
-    path: 'perfil-edit',
+    path: 'perfil-edit/:id',
     loadChildren: () => import('./perfiles/perfil-edit/perfil-edit.module').then( m => m.PerfilEditPageModule)
   },
   {

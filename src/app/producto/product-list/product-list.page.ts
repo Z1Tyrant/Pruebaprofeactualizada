@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-// Importamos Librerías
 import { LoadingController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ClProducto } from "../model/ClProducto";
-//import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ClProducto } from '../model/ClProducto';
 import { ProductServiceService } from '../product-service.service';
 
 
@@ -14,51 +10,49 @@ import { ProductServiceService } from '../product-service.service';
   styleUrls: ['./product-list.page.scss'],
 })
 export class ProductListPage implements OnInit {
-  // Creamos la Variable para el Html
   productos: ClProducto[] = [];
-  // Injectamos Librerias
-  constructor(public restApi: ProductServiceService
-    , public loadingController: LoadingController
-    , public router: Router) { }
 
-  // LLamamos al método que rescata los productos  
+
+  constructor(
+    public restApi: ProductServiceService,
+    public loadingController: LoadingController
+  ) {}
+
+
   ngOnInit() {
     this.getProducts();
   }
 
-  // Método  que rescta los productos
-  async getProducts() {
-    console.log("Entrando :getProducts");
-    // Crea un Wait (Esperar)
-    const loading = await this.loadingController.create({
-      message: 'Harrys Loading...'
-    });
-    // Muestra el Wait
-    await loading.present();
-    console.log("Entrando :");
-    // Obtiene el Observable del servicio
-    await this.restApi.getProducts()
-      .subscribe({
-        next: (res) => { 
-          console.log("Res:" + res);
-  // Si funciona asigno el resultado al arreglo productos
-          this.productos = res;
-          console.log("thisProductos:",this.productos);
-          loading.dismiss();
-        }
-        , complete: () => { }
-        , error: (err) => {
-  // Si da error, imprimo en consola.
-          console.log("Err:" + err);
-          loading.dismiss();
-        }
-      })
+
+  ionViewDidEnter() {
+    // Este método se ejecuta cada vez que la vista entra (navegación de regreso desde otra página)
+    this.getProducts();
   }
 
 
-  
-  // drop(event: CdkDragDrop<string[]>) {
-  //   console.log("Moviendo Item Array Drop ***************:");
-  //   moveItemInArray(this.productos, event.previousIndex, event.currentIndex);
-  // }
+  async getProducts() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+
+
+    await loading.present();
+
+
+    await this.restApi.getProducts().subscribe({
+      next: (res) => {
+        // Filtrar los productos por código '09-G04'
+        this.productos = res.filter((producto) => producto.codigo === '09-G04');
+        loading.dismiss();
+      },
+      complete: () => {},
+      error: (err) => {
+        console.log("Error: " + err);
+        loading.dismiss();
+      },
+    });
+  }
 }
+
+
+

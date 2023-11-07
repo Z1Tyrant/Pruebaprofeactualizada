@@ -1,142 +1,188 @@
 import { Component, OnInit } from '@angular/core';
+  import { LoadingController, AlertController } from '@ionic/angular';
+  import { ActivatedRoute, Router } from '@angular/router';
+  import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+  import { ClProducto } from '../model/ClProducto';
+  import { ProductServiceService } from '../product-service.service';
 
-// Imporamos librerías
-import { LoadingController, AlertController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
-import { ClProducto } from "../model/ClProducto";
-import { ProductServiceService } from '../product-service.service';
 
-@Component({
-  selector: 'app-product-edit',
-  templateUrl: './product-edit.page.html',
-  styleUrls: ['./product-edit.page.scss'],
-})
-export class ProductEditPage implements OnInit {
-  // FormGroup para validaciones
-  productForm!: FormGroup;
-  // Esquema a utilizar en el Html
-  producto: ClProducto = {
-    idProducto: 0,
-  codigo: '',
-  nombreprod: '',
-  precio: 0,
-  cantidad: 0,
-  fechaNacimiento: new Date(),
-  rut: 0,
-  dv: '',
-  enfermedad: '',
-  fonocontacto: 0,
-  categoria: '',
-  editorial: '',
-  raza: '',
-  edad: 0,
-  altura: 0,
-  hrini: '',
-  hrfin: '',
-  direccion: '',
-  fCreacion: new Date(),
 
-  };
-  id: any = '';
-  //prod_name: string = '';
-  //prod_desc: string = '';
-  //prod_price:number=null;
-  //prod_cantidad:number=null
 
-  // Injectamos librerías
-  constructor(public restApi: ProductServiceService,
-    public loadingController: LoadingController,
-    public alertController: AlertController,
-    public route: ActivatedRoute,
-    public router: Router,
-    private formBuilder: FormBuilder) { }
 
-  ngOnInit() {
-    console.log("ngOnInit ID:" + this.route.snapshot.params['id']);
-    // Relizamos lectura
-    this.getProduct(this.route.snapshot.params['id']);
-    // Especificamos Validaciones por medio de FormGroup
+
+
+
+
+
+
+  @Component({
+    selector: 'app-product-edit',
+    templateUrl: './product-edit.page.html',
+    styleUrls: ['./product-edit.page.scss'],
+  })
+
+
+
+
+
+
+  export class ProductEditPage implements OnInit {
+    productForm!: FormGroup;
+    producto: ClProducto = {
+      idProducto: 0,
+      codigo: '09-G6',
+      nombreprod: '',
+      precio: 0,
+      cantidad: 0, // Nueva propiedad
+      fechaNacimiento: '', // Nueva propiedad
+      rut: '',
+      dv: '0', // Nueva propiedad
+      enfermedad: '0', // Nueva propiedad
+      fonocontacto: 0, // Nueva propiedad
+      categoria: '0', // Nueva propiedad
+      editorial: '0', // Nueva propiedad
+      raza: '0', // Nueva propiedad
+      edad: 0, // Nueva propiedad
+      altura: 0, // Nueva propiedad
+      hrini: '0', // Nueva propiedad
+      hrfin: '0', // Nueva propiedad
+      direccion: '', // Nueva propiedad
+      fCreacion: '', // Nueva propiedad
+    };
+    id: any = '';
+
+
+    constructor(
+      public restApi: ProductServiceService,
+      public loadingController: LoadingController,
+      public alertController: AlertController,
+      public route: ActivatedRoute,
+      public router: Router,
+      private formBuilder: FormBuilder
+    ) {}
+
+
+   async ngOnInit() {
+  console.log("ngOnInit ID:" + this.route.snapshot.params['']);
+  this.id = this.route.snapshot.params['id'];
+
+
+  if (this.id !== undefined && this.id !== null) {
+    await this.getProduct(this.id); // Asegúrate de esperar a que se complete la carga del producto.
     this.productForm = this.formBuilder.group({
-      'prod_name': [null, Validators.required],
-      'prod_desc': [null, Validators.required],
-      'prod_price': [null, Validators.required],
+      'nombreprod': [this.producto.nombreprod, Validators.required],
+      'precio': [this.producto.precio, Validators.required],
+      'direccion': [this.producto.direccion, Validators.required],
     });
+  } else {
+    console.error('ID es undefined o null');
+    // Puedes mostrar un mensaje de error al usuario si es necesario.
   }
-  async onFormSubmit(form: NgForm) {
-    console.log("onFormSubmit ID:" + this.id)
-    this.producto.idProducto = this.id;
-    /*this.producto.nombre = form.prod_name;
-    this.producto.descripcion = form.prod_desc;
-    this.producto.precio = form.prod_price;
-    this.producto.cantidad = form.prod_cantidad;
-    */
-    // si envio form, envio los nombres del campo del formulario
-    //await this.restApi.updateProduct(this.id, form)
-    await this.restApi.updateProduct(this.id, this.producto)
-      .subscribe({
+}
+
+
+async onFormSubmit() {
+  console.log("onFormSubmit ID:" + this.id);
+
+
+  if (this.productForm.valid) {
+    if (this.producto && this.producto.idProducto) {
+      this.producto.idProducto = this.id;
+      this.producto.nombreprod = this.productForm.value.nombreprod;
+      this.producto.direccion = this.productForm.value.direccion;
+      this.producto.precio = this.productForm.value.precio;
+
+
+      await this.restApi.updateProduct(this.id, this.producto).subscribe({
         next: (res) => {
           let id = res['idProducto'];
-          //this.router.navigate([ 'detail', { outlets: { details: id }} ]);
-          this.router.navigate(['/product-detail/' + this.id]);
-        }
-        , complete: () => { }
-        , error: (err) => { console.log(err); }
-      })
-
-  }
-
-  // Método que permite leer el producto
-  async getProduct(id: number) {
-    // Crea Wait
-      const loading = await this.loadingController.create({
-        message: 'Loading...'
+          this.presentAlertConfirm('Producto actualizado exitosamente.');
+        },
+        complete: () => {},
+        error: (err) => {
+          console.log(err);
+          this.presentAlertConfirm('Error al actualizar el producto.');
+        },
       });
-      // Muestra Wait
-      await loading.present();
-      // Obtiene el Observable
-      await this.restApi.getProduct(id + "")
-        .subscribe({
-          next: (data) => {
-            console.log("getProductID data****");
-            console.log(data);
-            // Si funciona Rescata el los datos
-            this.id = data.idProducto;
-            // Actualiza los datos
-            this.productForm.setValue({
-              prod_name: data.nombreprod,
-              prod_desc: data.direccion,
-              prod_price: data.precio,
-            });
-            loading.dismiss();
-          }
-          , complete: () => { }
-          , error: (err) => {
-            console.log("getProductID Errr****+");
-            console.log(err);
-            loading.dismiss();
-          }
-        })
+    } else {
+      console.error('El objeto producto o su propiedad idProducto es undefined');
+      // Puedes mostrar un mensaje de error al usuario si es necesario.
     }
-  
+  }
+}
 
- // Método que actualiza el producto por medio de submit
-  async presentAlertConfirm(msg: string) {
-    const alert = await this.alertController.create({
-      header: 'Warning!',
-      message: msg,
-      buttons: [
-        {
-          text: 'Okay',
-          handler: () => {
-            //Si funciona el actualizar navega a listar
-            this.router.navigate(['/product-list/']);
+
+async getProduct(id: number) {
+  const loading = await this.loadingController.create({
+    message: 'Loading...'
+  });
+
+
+  try {
+    await loading.present();
+
+
+    this.restApi.getProduct(id).subscribe({
+      next: (data) => {
+        console.log("getProductID data**");
+        console.log(data);
+
+
+        if (data) {
+          // Verifica si data no es null ni undefined
+          this.producto = data;
+
+
+          if (this.producto.idProducto) {
+            this.id = this.producto.idProducto;
+          }
+
+
+          if (this.producto.nombreprod) {
+            this.productForm.setValue({
+              nombreprod: this.producto.nombreprod || '',
+              direccion: this.producto.direccion || '',
+              precio: this.producto.precio || 0,
+            });
           }
         }
-      ]
+
+
+        loading.dismiss();
+      },
+      error: (err) => {
+        console.log("getProductID Error**");
+        console.log(err);
+        this.presentAlertConfirm('Error al cargar el producto.');
+        loading.dismiss();
+      },
     });
-    await alert.present();
+  } catch (error) {
+    console.log("getProductID Error**");
+    console.log(error);
+    this.presentAlertConfirm('Error al cargar el producto.');
+    loading.dismiss();
+  }
+}
+
+
+    async presentAlertConfirm(msg: string) {
+      const alert = await this.alertController.create({
+        header: 'Warning!',
+        message: msg,
+        buttons: [
+          {
+            text: 'Okay',
+            handler: () => {
+              this.router.navigate(['/product-list/']);
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }
   }
 
-}
+
+

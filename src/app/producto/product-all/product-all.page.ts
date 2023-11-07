@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClProducto } from "../model/ClProducto";
+import { ClProducto } from '../model/ClProducto';
 @Component({
   selector: 'app-product-all',
   templateUrl: './product-all.page.html',
@@ -11,31 +11,34 @@ export class ProductAllPage implements OnInit {
   buttonLeerDisabled = false
   buttonActualizarDisabled = false
   buttonCrearDisabled = false
-  producto: ClProducto = { 
+  producto: ClProducto = {
     idProducto: 0,
-    codigo: '',
+    codigo: '09-G06',
     nombreprod: '',
     precio: 0,
-    cantidad: 0,
-    fechaNacimiento: new Date(),
-    rut: 0,
-    dv: '',
-    enfermedad: '',
-    fonocontacto: 0,
-    categoria: '',
-    editorial: '',
-    raza: '',
-    edad: 0,
-    altura: 0,
-    hrini: '',
-    hrfin: '',
-    direccion: '',
-    fCreacion: new Date(),
+    cantidad: 0, // Nueva propiedad
+    fechaNacimiento: '', // Nueva propiedad
+    rut:'',
+    dv: '', // Nueva propiedad
+    enfermedad: '0', // Nueva propiedad
+    fonocontacto: 0, // Nueva propiedad
+    categoria: '0', // Nueva propiedad
+    editorial: '0', // Nueva propiedad
+    raza: '0', // Nueva propiedad
+    edad: 0, // Nueva propiedad
+    altura: 0, // Nueva propiedad
+    hrini: '0', // Nueva propiedad
+    hrfin: '0', // Nueva propiedad
+    direccion: '0', // Nueva propiedad
+    fCreacion: '', // Nueva propiedad
   };;
+
 
   constructor() { }
   ngOnInit() {  }
   public id: string = '';
+
+
 
 
   leer() {}
@@ -44,3 +47,6 @@ export class ProductAllPage implements OnInit {
   actualizar() { }
   grabarActualizarAutomatico() { }
 }
+
+
+
