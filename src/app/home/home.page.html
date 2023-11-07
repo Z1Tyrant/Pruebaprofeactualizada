@@ -1,6 +1,6 @@
 <ion-header translucent="true">
   <ion-toolbar>
-    <ion-title> Bienvenido a  PideQR {{ username }}</ion-title>
+    <ion-title> Bienvenido a PideQR {{ username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -24,8 +24,11 @@
       </ion-card-content>
     </ion-card> 
     <div class="centrado">
-    <ion-card>
-      <ion-button (click)="crearCuenta()">Crear</ion-button><ion-button (click)="irLogin()">Entrar</ion-button></ion-card></div></div>
+      <ion-card>
+        <ion-button (click)="crearCuenta()">Crear</ion-button>
+        <ion-button (click)="irLogin()">Entrar</ion-button>
+        <ion-button (click)="irCamaraPage()">Ir a la Cámara</ion-button> <!-- Agrega el botón para ir a la página de la cámara -->
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
-
-
