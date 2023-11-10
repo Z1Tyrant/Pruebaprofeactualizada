@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NavController, ToastController } from '@ionic/angular';
 
 @Component({
@@ -36,13 +35,15 @@ export class RegisterPage {
       mensajeError = 'La fecha de nacimiento no es válida.';
     } else if (this.contrasena.length < 8) {
       mensajeError = 'La contraseña debe tener al menos 8 caracteres.';
-    }else if (this.contrasena !== this.recontrasena) {
+    } else if (this.contrasena !== this.recontrasena) {
       mensajeError = 'Las contraseñas no coinciden.';
     }
 
     if (mensajeError === '') {
       // Todos los campos son válidos, procede con el registro
-      // Aquí debes implementar la lógica para guardar el usuario y la contraseña
+
+      // Guardar el usuario en localStorage
+      localStorage.setItem('usuario', this.usuario);
 
       // Mostrar un mensaje de éxito
       this.mostrarToast('Registro exitoso');
@@ -63,8 +64,8 @@ export class RegisterPage {
     });
     await toast.present();
   }
+
   volver() {
     this.navCtrl.navigateBack(['']);
+  }
 }
-}
-

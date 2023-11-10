@@ -18,7 +18,8 @@ export class LoginPage {
   ) {}
 
   login() {
-    // ... Código de inicio de sesión existente
+    
+    this.router.navigate(['/home']);
   }
 
   async showToast(message: string) {
@@ -40,7 +41,6 @@ export class LoginPage {
   }
 
   administracion() {
-    // Aquí es donde realizas la navegación a la página de administración
     this.router.navigate(['/administracion']);
   }
 
