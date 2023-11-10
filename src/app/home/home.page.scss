@@ -23,9 +23,6 @@
   padding: 1rem;
 }
 
-
-
-
 /* Define la animación fade-in */
 @keyframes fade-in {
   from {
@@ -37,9 +34,28 @@
 }
 
 .fade-in {
-  animation: fade-in 4.0s ease-out; /* Aplica la animación */
+  animation: fade-in 1.0s ease-out; /* Aplica la animación */
 }
 
-.centrado{
+.centrado {
   text-align: center;
 }
+
+/* Estilo para los iconos en el footer */
+ion-footer ion-icon {
+  font-size: 2rem;
+  margin: 0 0.5rem;
+}
+
+/* Estilo específico para los iconos de redes sociales en el footer */
+ion-footer ion-icon[name="logo-facebook"],
+ion-footer ion-icon[name="logo-twitter"],
+ion-footer ion-icon[name="logo-instagram"] ,
+ion-footer ion-icon[name="logo-linkedin"] {
+
+  color: #ffffff; /* Puedes ajustar el color según tus preferencias */
+  margin-top: 5px; /* Ajusta el margen superior según tus necesidades */
+}
+
+
+

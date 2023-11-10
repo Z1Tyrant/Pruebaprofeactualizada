@@ -27,8 +27,22 @@
       <ion-card>
         <ion-button (click)="crearCuenta()">Crear</ion-button>
         <ion-button (click)="irLogin()">Entrar</ion-button>
-        <ion-button (click)="irCamaraPage()">Ir a la Cámara</ion-button> <!-- Agrega el botón para ir a la página de la cámara -->
+        <ion-button (click)="irCamaraPage()">Scanea tu codigo Qr</ion-button>
       </ion-card>
     </div>
   </div>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-icon name="logo-facebook"></ion-icon>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
+        <ion-icon name="logo-linkedin"></ion-icon>
+
+      </ion-buttons>
+      <ion-buttons slot="end">
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>

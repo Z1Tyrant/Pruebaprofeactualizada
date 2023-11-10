@@ -92,7 +92,11 @@ const routes: Routes = [
   {
     path: 'geolocalizacion',
     loadChildren: () => import('./geolocalizacion/geolocalizacion.module').then( m => m.GeolocalizacionPageModule)
+  },  {
+    path: 'administracion',
+    loadChildren: () => import('./administracion/administracion.module').then( m => m.AdministracionPageModule)
   },
+
 
 
 ];
