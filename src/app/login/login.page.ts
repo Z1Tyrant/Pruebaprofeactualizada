@@ -18,7 +18,40 @@ export class LoginPage {
   ) {}
 
   login() {
-    
+    // Validar que ambos campos estén completos
+    if (!this.username.trim() || !this.password.trim()) {
+      this.showToast('Por favor, completa todos los campos para iniciar sesión.');
+      
+    }
+
+    // Validar el formato del usuario (puedes ajustar esta expresión regular según tus requisitos)
+    const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+    if (!usernameRegex.test(this.username)) {
+      this.showToast('El usuario debe contener entre 3 y 20 caracteres alfanuméricos o guiones bajos.');
+      return;
+    }
+
+    // Validar el formato de la contraseña (puedes ajustar esta expresión regular según tus requisitos)
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordRegex.test(this.password)) {
+      this.showToast('La contraseña debe contener al menos 8 caracteres, una letra y un número.');
+      return;
+    }
+
+    // Aquí deberías realizar la lógica real de inicio de sesión (autenticación).
+    // Por ahora, solo navegaré a la página de inicio.
+    // Reemplaza este bloque con tu lógica de autenticación real.
+
+    // Ejemplo de lógica de autenticación (solo como referencia):
+    // if (this.autenticarUsuario(this.username, this.password)) {
+    //   // La autenticación fue exitosa, navega a la página de inicio
+    //   this.router.navigate(['/home']);
+    // } else {
+    //   // La autenticación falló, muestra un mensaje de error
+    //   this.showToast('Credenciales incorrectas. Inténtalo de nuevo.');
+    // }
+
+    // Por ahora, simplemente navegaré a la página de inicio.
     this.router.navigate(['/home']);
   }
 
@@ -41,10 +74,29 @@ export class LoginPage {
   }
 
   administracion() {
+    // Validar que ambos campos estén completos antes de navegar a la página de administración
+    if (!this.username.trim() || !this.password.trim()) {
+      this.showToast('Por favor, completa todos los campos antes de acceder a la administración.');
+      return;
+    }
+
+    // Validar el formato del usuario y la contraseña (puedes agregar lógica adicional aquí si es necesario)
+    // Ejemplo: Verificar si el usuario y la contraseña cumplen con ciertos requisitos adicionales
+
+    // Si los campos están completos y pasan la validación, puedes continuar con la lógica de autenticación
+    // Aquí deberías realizar la lógica real de inicio de sesión (autenticación).
+    // Por ahora, solo navegaré a la página de administración.
     this.router.navigate(['/administracion']);
   }
 
   volver() {
     this.navCtrl.navigateBack(['']);
+  }
+
+  // Este método es solo un ejemplo y debería ser reemplazado por tu lógica de autenticación real
+  private autenticarUsuario(username: string, password: string): boolean {
+    // Aquí deberías realizar la autenticación real, por ejemplo, comparar con una base de datos
+    // Este es solo un ejemplo de autenticación básica, no lo uses en un entorno de producción
+    return username === 'usuario' && password === 'contrasena';
   }
 }

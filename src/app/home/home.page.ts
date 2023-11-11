@@ -32,15 +32,8 @@ export class HomePage {
     await toast.present();
   }
 
-  irLogin() {
-    this.showToast('Ingresa tus datos');
-    this.router.navigate(['/login']);
-  }
+ 
 
-  crearCuenta() {
-    this.showToast('Registra tus datos');
-    this.router.navigate(['/register']);
-  }
 
   irCamaraPage() {
     this.router.navigate(['/camara']); // Navega a la página de la cámara
